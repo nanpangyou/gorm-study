@@ -1,5 +1,7 @@
 package main
 
+import "time"
+
 func TestModel() {
 	// 定义结构体
 	type Student struct {
@@ -15,10 +17,17 @@ func TestModel() {
 
 	// 还有其他可使用的属性, 多属性之间用分号(;)隔开
 	type Demostruct struct {
-		Id    uint    `gorm:"size:10"`
-		Name  string  `gorm:"type:varchar(10);not null;comment:姓名"`
-		Age   int     `gorm:"size:3;comment:年龄"`
-		Email *string `gorm:"size:256;unique;comment:邮箱"` // 指针类型可以传空值
+		Id         uint      `gorm:"size:10;primaryKey;autoIncrement;comment:主键"`
+		Name       string    `gorm:"type:varchar(10);not null;comment:姓名"`
+		Age        int       `gorm:"size:3;comment:年龄"`
+		Email      *string   `gorm:"size:256;unique;comment:邮箱"`   // 指针类型可以传空值
+		NickName   *string   `gorm:"size:256;comment:昵称;not null"` // 指针类型可以传空值
+		CreatedAt  time.Time `gorm:"comment:创建时间;autoCreateTime"`
+		Updated_at time.Time `gorm:"comment:更新时间;autoUpdateTime"`
 	}
 	DB.AutoMigrate(&Demostruct{})
+	email := "101@qq.com"
+	DB.Create(&Demostruct{Name: "Jinzhu", Age: 18, Email: &email})
+	// 条件更新
+	// DB.Model(&Demostruct{}).Where("email = ?", "3@qq.com").Update("age", 33)
 }
