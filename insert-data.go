@@ -15,7 +15,9 @@ func TestInsertData() {
 	// 插入单条数据
 	email := "1@qq.com"
 	err := DB.Create(&Insert{Name: "Jinzhu", Age: 18, Email: &email}).Error
-	fmt.Printf("err: %v\n", err)
+	if err != nil {
+		fmt.Printf("err: %v\n", err)
+	}
 
 	// 批量插入数据
 	// 声明一个切片
@@ -28,5 +30,7 @@ func TestInsertData() {
 	}
 	// 批量插入
 	err1 := DB.Create(&inserts).Error
-	fmt.Printf("err: %v\n", err1)
+	if err1 != nil {
+		fmt.Printf("err: %v\n", err1)
+	}
 }
