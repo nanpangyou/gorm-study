@@ -28,6 +28,7 @@ func selectSingleData() {
 	selectSession.Last(&demostruct) // 查询最后一条数据，相当于执行 SELECT * FROM `demo_demostructs` ORDER BY `demo_demostructs`.`id` DESC LIMIT 1
 	fmt.Printf("demostruct.last: %v\n", demostruct)
 	fmt.Printf("demostruct.Email: %v\n", *demostruct.Email)
+
 }
 
 func selectMultiData() {
